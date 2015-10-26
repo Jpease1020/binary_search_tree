@@ -7,7 +7,7 @@ class BinaryTree
     @head = Node.new(value)
   end
 
-  def insert(value = nil, this_node = @head)
+  def insert(value, this_node = @head)
     if value > this_node.value && !this_node.right_node
       this_node.right_node = Node.new(value)
     elsif value > this_node.value && this_node.right_node
@@ -18,4 +18,19 @@ class BinaryTree
       insert(value, this_node.left_node)
     end
   end
+
+  def include?(value, this_node = @head)
+    if value == this_node.value
+      true
+    elsif (value > this_node.value) && !this_node.right_node
+      false
+    elsif (value > this_node.value) && this_node.right_node
+      include?(value, this_node.right_node)
+    elsif value < this_node.value && !this_node.left_node
+      false
+    elsif value < this_node.value && this_node.left_node
+      include?(value, this_node.left_node)
+    end
+  end
+
 end
