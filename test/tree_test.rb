@@ -89,4 +89,26 @@ class TreeTest < Minitest::Test
     refute tree.include?(93)
     assert tree.include?(30)
   end
+
+  def test_we_can_check_the_depth_of_a_node
+    tree = BinaryTree.new(50)
+    tree.insert(80)
+    tree.insert(70)
+    tree.insert(60)
+    tree.insert(30)
+    tree.insert(20)
+    tree.insert(40)
+    tree.insert(81)
+    tree.insert(82)
+    tree.insert(83)
+    tree.insert(84)
+    tree.insert(85)
+    tree.insert(86)
+
+    assert_equal 1, tree.depth_of?(50)
+    assert_equal 2, tree.depth_of?(30)
+    assert_equal 3, tree.depth_of?(70)
+    assert_equal 0, tree.depth_of?(37)
+    assert_equal 8, tree.depth_of?(86)
+  end
 end
