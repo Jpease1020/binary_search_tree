@@ -111,4 +111,18 @@ class TreeTest < Minitest::Test
     assert_equal 0, tree.depth_of?(37)
     assert_equal 8, tree.depth_of?(86)
   end
+
+  def test_we_can_sort_the_tree_converting_it_into_a_sorted_array
+    tree = BinaryTree.new(50)
+    tree.insert(80)
+    tree.insert(70)
+    tree.insert(60)
+    tree.insert(30)
+    tree.insert(20)
+    tree.insert(40)
+    tree.insert(81)
+    assert_equal [20, 30, 40, 50, 60, 70, 80, 81], tree.sort
+  end
+
+
 end

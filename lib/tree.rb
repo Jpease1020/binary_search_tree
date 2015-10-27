@@ -53,4 +53,36 @@ class BinaryTree
     end
   end
 
+  def to_array(this_node = @head, array = [])
+    if this_node
+      array << this_node.value
+    end
+    if this_node && (this_node.right_node || this_node.left_node)
+      to_array(this_node.right_node, array)
+      to_array(this_node.left_node, array)
+    end
+    array
+  end
+  def sorted_insert(num, array = [], index = 0)
+    if array[0] == nil
+      array << num
+    elsif num <= array[index]
+      array.unshift(num)
+    elsif num >= array[-1]
+      array << num
+      return array
+    else
+      until num >= array[index] && num < array[index + 1]
+        index += 1
+      end
+      array.insert(index + 1, num)
+    end
+      array
+  end
+
+  def sort
+    to_array.reduce([]) do |ary, n|
+      ary = sorted_insert(n, ary)
+    end
+  end
 end
