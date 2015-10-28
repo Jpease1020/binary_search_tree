@@ -78,6 +78,22 @@ class TreeTest < Minitest::Test
     assert_equal 37, tree.head.left_node.right_node.left_node.value
   end
 
+  def test_we_can_find_a_node
+    tree = BinaryTree.new(50)
+    tree.insert(80)
+    tree.insert(70)
+    tree.insert(60)
+    tree.insert(30)
+    tree.insert(20)
+    tree.insert(40)
+    tree.insert(41)
+    tree.insert(76)
+    tree.insert(75)
+    tree.insert(64)
+
+    assert_equal 40, tree.find_node(40).value
+  end
+
   def test_we_can_see_if_a_node_is_included_in_the_tree
     tree = BinaryTree.new(50)
     tree.insert(80)
@@ -179,62 +195,6 @@ class TreeTest < Minitest::Test
     assert_equal 5, tree.height
   end
 
-  def test_we_can_delete_a_node_in_the_tree_and_the_tree_keeps_the_children_of_that_node
-skip
-    tree = BinaryTree.new(50)
-    tree.insert(80)
-    tree.insert(70)
-    tree.insert(60)
-    tree.insert(30)
-    tree.insert(20)
-    tree.insert(40)
-    tree.insert(8)
-    tree.insert(76)
-    tree.insert(75)
-    tree.insert(64)
-    assert_equal 5, tree.height
-    assert_equal 11, tree.total
-    assert tree.include?(40)
-
-    tree.delete(40)
-    assert_equal 5, tree.height
-    assert_equal 1, tree.total
-    refute tree.include?(40)
-  end
-
-  def test_we_can_delete_the_head_and_the_tree_restructures_to_keep_the_children_of_that_node
-skip
-    tree = BinaryTree.new(50)
-    tree.insert(80)
-    tree.insert(70)
-    tree.insert(60)
-    tree.insert(30)
-    tree.insert(20)
-    tree.insert(40)
-    tree.insert(8)
-    tree.insert(76)
-    tree.insert(75)
-    tree.insert(64)
-
-    tree.delete(50)
-  end
-
-  def test_we_can_find_a_node
-    tree = BinaryTree.new(50)
-    tree.insert(80)
-    tree.insert(70)
-    tree.insert(60)
-    tree.insert(30)
-    tree.insert(20)
-    tree.insert(40)
-    tree.insert(41)
-    tree.insert(76)
-    tree.insert(75)
-    tree.insert(64)
-
-    assert_equal 40, tree.find_node(40).value
-  end
-
   def test_we_can_find_a_nodes_parent_node
     tree = BinaryTree.new(50)
     tree.insert(80)
@@ -250,4 +210,52 @@ skip
 
     assert_equal 30, tree.find_parent_node(40).value
   end
+
+  def test_we_can_delete_a_node_in_the_tree_and_the_tree_keeps_the_children_of_that_node
+    tree = BinaryTree.new(50)
+    tree.insert(80)
+    tree.insert(70)
+    tree.insert(60)
+    tree.insert(30)
+    tree.insert(20)
+    tree.insert(40)
+    tree.insert(8)
+    tree.insert(76)
+    tree.insert(75)
+    tree.insert(64)
+    assert_equal 5, tree.height
+    assert_equal 11, tree.total
+    assert tree.include?(30)
+
+    tree.delete(30)
+    assert_equal 5, tree.height
+    assert_equal 10, tree.total
+    refute tree.include?(30)
+    assert tree.include?(20)
+    assert tree.include?(40)
+  end
+
+  def test_we_can_delete_the_head_and_the_tree_restructures
+    tree = BinaryTree.new(50)
+    tree.insert(80)
+    tree.insert(70)
+    tree.insert(60)
+    tree.insert(30)
+    tree.insert(20)
+    tree.insert(40)
+    tree.insert(8)
+    tree.insert(76)
+    tree.insert(75)
+    tree.insert(64)
+
+    assert_equal 5, tree.height
+    assert_equal 11, tree.total
+    assert tree.include?(50)
+
+    tree.delete(50)
+    assert_equal 5, tree.height
+    assert_equal 10, tree.total
+    refute tree.include?(50)
+  end
+
 end
