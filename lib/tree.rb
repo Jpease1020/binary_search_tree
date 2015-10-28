@@ -42,17 +42,12 @@ class BinaryTree
   def depth_of?(value, this_node = @head, counter = 0)
     if find_node(value, this_node) == false
       counter = 0
-    end
-    if value == this_node.value
+    elsif value == this_node.value
       counter += 1
-      return counter
-    elsif (value > this_node.value) && !this_node.right_node
       counter
     elsif (value > this_node.value) && this_node.right_node
       counter += 1
       depth_of?(value, this_node.right_node, counter)
-    elsif value < this_node.value && !this_node.left_node
-      counter
     elsif value < this_node.value && this_node.left_node
       counter += 1
       depth_of?(value, this_node.left_node, counter)
