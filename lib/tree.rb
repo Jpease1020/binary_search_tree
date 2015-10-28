@@ -85,4 +85,12 @@ class BinaryTree
       ary = sorted_insert(n, ary)
     end
   end
+
+  def maximum
+    sort[-1]
+  end
+
+  def minimum
+    sort[0]
+  end
 end

@@ -124,5 +124,29 @@ class TreeTest < Minitest::Test
     assert_equal [20, 30, 40, 50, 60, 70, 80, 81], tree.sort
   end
 
+  def test_we_can_find_the_max_value_in_the_tree
+    tree = BinaryTree.new(50)
+    tree.insert(80)
+    tree.insert(70)
+    tree.insert(60)
+    tree.insert(30)
+    tree.insert(20)
+    tree.insert(40)
+    tree.insert(81)
 
+    assert_equal 81, tree.maximum
+  end
+
+  def test_we_can_find_the_max_value_in_the_tree
+    tree = BinaryTree.new(50)
+    tree.insert(80)
+    tree.insert(70)
+    tree.insert(60)
+    tree.insert(30)
+    tree.insert(20)
+    tree.insert(40)
+    tree.insert(8)
+
+    assert_equal 8, tree.minimum
+  end
 end
