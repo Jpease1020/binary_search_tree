@@ -93,4 +93,8 @@ class BinaryTree
   def minimum
     sort[0]
   end
+
+  def total
+    to_array.count
+  end
 end

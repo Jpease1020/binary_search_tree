@@ -149,4 +149,17 @@ class TreeTest < Minitest::Test
 
     assert_equal 8, tree.minimum
   end
+
+  def test_we_can_find_the_total_number_of_nodes_in_the_tree
+    tree = BinaryTree.new(50)
+    tree.insert(80)
+    tree.insert(70)
+    tree.insert(60)
+    tree.insert(30)
+    tree.insert(20)
+    tree.insert(40)
+    tree.insert(8)
+
+    assert_equal 8, tree.total
+  end
 end
