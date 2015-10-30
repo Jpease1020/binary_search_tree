@@ -95,6 +95,7 @@ class TreeTest < Minitest::Test
   end
 
   def test_we_can_see_if_a_node_is_included_in_the_tree
+
     tree = BinaryTree.new(50)
     tree.insert(80)
     tree.insert(70)

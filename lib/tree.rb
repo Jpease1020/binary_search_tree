@@ -5,28 +5,30 @@ class BinaryTree
   attr_accessor :head
   def initialize(value = nil)
     @head = Node.new(value)
+    @counter
   end
 
   def insert(value, this_node = @head)
-    if value > this_node.value && !this_node.right_node
-      this_node.right_node = Node.new(value)
-    elsif value > this_node.value && this_node.right_node
-      insert(value, this_node.right_node)
-    elsif value < this_node.value && !this_node.left_node
-      this_node.left_node = Node.new(value)
-    elsif value < this_node.value && this_node.left_node
-      insert(value, this_node.left_node)
+    if this_node && (value > this_node.value)
+      insert(value, this_node.right_node) || (this_node.right_node = Node.new(value))
+    elsif this_node && (value < this_node.value)
+      insert(value, this_node.left_node) || (this_node.left_node = Node.new(value))
     end
   end
 
-  def find_node(value, this_node = @head)
+  def find_node(value, this_node = @head, counter = 0)
     if this_node && value == this_node.value
+      counter += 1
+      @counter = counter
       this_node
     elsif this_node && value > this_node.value
-      find_node(value, this_node.right_node)
+      counter += 1
+      find_node(value, this_node.right_node, counter)
     elsif this_node && value < this_node.value && this_node.left_node
-      find_node(value, this_node.left_node)
+      counter += 1
+      find_node(value, this_node.left_node, counter)
     else
+      @counter = 0
       false
     end
   end
@@ -40,18 +42,8 @@ class BinaryTree
   end
 
   def depth_of?(value, this_node = @head, counter = 0)
-    if find_node(value, this_node) == false
-      counter = 0
-    elsif value == this_node.value
-      counter += 1
-      counter
-    elsif (value > this_node.value) && this_node.right_node
-      counter += 1
-      depth_of?(value, this_node.right_node, counter)
-    elsif value < this_node.value && this_node.left_node
-      counter += 1
-      depth_of?(value, this_node.left_node, counter)
-    end
+    find_node(value, this_node, counter)
+      @counter
   end
 
   def tree_to_array(this_node = @head, array = [])
@@ -72,7 +64,6 @@ class BinaryTree
       array.unshift(num)
     elsif num >= array[-1]
       array << num
-      return array
     else
       until num >= array[index] && num < array[index + 1]
         index += 1
@@ -136,19 +127,5 @@ class BinaryTree
       self.insert(node)
     end
   end
-  # trying to simplify the clean up the delete method by making the found node not exists
-  # def delete(value)
-  #   if value == @head.value
-  #     lost_nodes = tree_to_array - [value]
-  #     @head = Node.new(lost_nodes[(lost_nodes.length / 2) - 1])
-  #   else
-  #     branch = find_node(value)
-  #     lost_nodes = tree_to_array(branch) - [value]
-  #     find_node(value)
-  #     # binding.pry
-  #   end
-  #   lost_nodes.each do |node|
-  #     insert(node)
-  #   end
-  # end
+
 end
